@@ -1,0 +1,15 @@
+﻿{
+  "newForm": "i-i-s-reports-text-classifier-ai-report-e",
+  "editForm": "i-i-s-reports-text-classifier-ai-report-e",
+  "external": false,
+  "caption": "Report",
+  "name": "IISReportsTextClassifierAiReportL",
+  "className": "ReportL",
+  "attrs": [],
+  "projections": [
+    {
+      "modelName": "i-i-s-reports-text-classifier-ai-report",
+      "modelProjection": "ReportL"
+    }
+  ]
+}

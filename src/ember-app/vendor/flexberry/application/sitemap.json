@@ -1,0 +1,29 @@
+﻿{
+  "applicationCaption": "Reports ocr and search",
+  "applicationTitle": "Reports ocr and search",
+  "items": [
+    {
+      "link": null,
+      "menuName": "reports-text-classifier-ai",
+      "caption": "ReportsTextClassifierAi",
+      "title": "ReportsTextClassifierAi",
+      "children": [
+        {
+          "link": "i-i-s-reports-text-classifier-ai-report-l",
+          "menuName": null,
+          "caption": "ReportL",
+          "title": "Report",
+          "children": null
+        },
+        {
+          "link": "i-i-s-reports-text-classifier-ai-report-type-l",
+          "menuName": null,
+          "caption": "ReportTypeL",
+          "title": "",
+          "children": null
+        }
+      ]
+    }
+  ],
+  "mobile": true
+}

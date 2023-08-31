@@ -1,0 +1,77 @@
+﻿{
+  "name": "IISReportsTextClassifierAiReport",
+  "modelName": "i-i-s-reports-text-classifier-ai-report",
+  "className": "Report",
+  "nameSpace": "IIS.ReportsTextClassifierAi",
+  "parentModelName": null,
+  "parentClassName": null,
+  "attrs": [
+    {
+      "name": "reportFile",
+      "type": "file",
+      "flexberryType": "WebFile",
+      "notNull": false,
+      "defaultValue": "",
+      "stored": true,
+      "ordered": false
+    }
+  ],
+  "belongsTo": [
+    {
+      "polymorphic": false,
+      "presence": true,
+      "name": "reportType",
+      "relatedTo": "i-i-s-reports-text-classifier-ai-report-type",
+      "inverse": null
+    }
+  ],
+  "hasMany": [],
+  "projections": [
+    {
+      "name": "ReportE",
+      "modelName": "i-i-s-reports-text-classifier-ai-report",
+      "attrs": [
+        {
+          "name": "reportFile",
+          "caption": "Report file",
+          "hidden": false,
+          "index": 0
+        }
+      ],
+      "belongsTo": [
+        {
+          "lookupValue": null,
+          "lookupValueField": null,
+          "relationName": "ReportType",
+          "belongsTo": [],
+          "hidden": false,
+          "attrs": [],
+          "index": 1,
+          "type": "default",
+          "caption": "",
+          "name": "reportType",
+          "relatedTo": "i-i-s-reports-text-classifier-ai-report-type",
+          "inverse": null
+        }
+      ],
+      "hasMany": []
+    },
+    {
+      "name": "ReportL",
+      "modelName": "i-i-s-reports-text-classifier-ai-report",
+      "attrs": [
+        {
+          "name": "reportFile",
+          "caption": "Report file",
+          "hidden": false,
+          "index": 0
+        }
+      ],
+      "belongsTo": [],
+      "hasMany": []
+    }
+  ],
+  "stored": true,
+  "offline": true,
+  "external": false
+}

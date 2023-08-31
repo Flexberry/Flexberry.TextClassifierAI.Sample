@@ -1,0 +1,14 @@
+﻿{
+  "propertyLookup": [],
+  "external": false,
+  "caption": "ReportType",
+  "name": "IISReportsTextClassifierAiReportTypeE",
+  "className": "ReportTypeE",
+  "attrs": [],
+  "projections": [
+    {
+      "modelName": "i-i-s-reports-text-classifier-ai-report-type",
+      "modelProjection": "ReportTypeE"
+    }
+  ]
+}
