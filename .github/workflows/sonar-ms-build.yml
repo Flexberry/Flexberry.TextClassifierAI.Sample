@@ -50,26 +50,3 @@ jobs:
           nuget install xunit.runner.console -Version 2.4.1 -OutputDirectory testrunner
           dotnet build ./src/ReportsTextClassifierAi/ReportsTextClassifierAi.sln
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-
-  python-project-check:
-    name: Python analyze
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Setup Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.11
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r ./src/ScikitLearnClassifier/requirements.txt
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        with:
-            projectBaseDir: ./src/ScikitLearnClassifier
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
