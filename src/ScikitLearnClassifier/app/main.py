@@ -2,7 +2,7 @@ from typing import Union
 from fastapi import FastAPI
 from .entities.request_entities import HttpTextDocument
 
-app = FastAPIпавпв()
+app = FastAPI()
 
 @app.post("/classify", 
           summary="Takes a document docx file and classifies it according the classifier",
