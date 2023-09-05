@@ -2,7 +2,7 @@ name: SonarCloud
 on:
   push:
     branches:
-      - develop
+      - feature-234099-workflows
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
