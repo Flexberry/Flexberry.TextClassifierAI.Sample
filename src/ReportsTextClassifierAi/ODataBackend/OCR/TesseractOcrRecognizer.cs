@@ -151,7 +151,7 @@
 
             foreach (string existingFile in txtFiles)
             {
-                stringBuilder.Append(existingFile);
+                stringBuilder.Append(File.ReadAllText(existingFile));
             }
 
             return stringBuilder.ToString();

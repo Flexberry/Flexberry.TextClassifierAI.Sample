@@ -72,7 +72,7 @@
         /// <param name="uploadKey">Идентификатор загрузки.</param>
         /// <param name="fileName">Имя файла.</param>
         /// <returns>Распознанный текст.</returns>
-        private string RecognizeFile(string uploadDirectory, string uploadKey, string fileName)
+        private static string RecognizeFile(string uploadDirectory, string uploadKey, string fileName)
         {
             string resultText = string.Empty;
             TesseractOcrRecognizer recognizer = new TesseractOcrRecognizer();
