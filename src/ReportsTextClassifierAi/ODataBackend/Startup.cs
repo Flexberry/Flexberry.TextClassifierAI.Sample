@@ -6,6 +6,8 @@
     using ICSSoft.STORMNET.Business;
     using ICSSoft.STORMNET.Security;
     using IIS.Caseberry.Logging.Objects;
+    using IIS.ReportsTextClassifierAi.Classification;
+    using IIS.ReportsTextClassifierAi.Interfaces;
     using Microsoft.AspNet.OData.Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -60,6 +62,8 @@
 
             services.AddOData();
 
+            services.AddControllers().AddControllersAsServices();
+
             services.AddCors();
             services
                 .AddHealthChecks()
@@ -74,7 +78,7 @@
         /// </remarks>
         /// <param name="app">An application configurator.</param>
         /// <param name="env">Information about web hosting environment.</param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataObjectUpdateHandler uploadedFilesHandler)
         {
             LogService.LogInfo("Инициирован запуск приложения.");
 
@@ -91,6 +95,11 @@
                 endpoints.MapHealthChecks("/health");
             });
 
+            app.UseMvc(builder =>
+            {
+                builder.MapFileRoute();
+            });
+
             app.UseODataService(builder =>
             {
                 builder.MapFileRoute();
@@ -105,6 +114,9 @@
                 var modelBuilder = new DefaultDataObjectEdmModelBuilder(assemblies, true);
 
                 var token = builder.MapDataObjectRoute(modelBuilder);
+
+                token.Events.CallbackAfterCreate = uploadedFilesHandler.CallbackAfterUpdate;
+                token.Events.CallbackAfterUpdate = uploadedFilesHandler.CallbackAfterUpdate;
             });
         }
 
@@ -130,6 +142,9 @@
 
             RegisterDataObjectFileAccessor(container);
             RegisterORM(container);
+
+            container.RegisterType<IDataObjectUpdateHandler, ReportFileClassifier>(
+                Invoke.Constructor(Configuration));
         }
 
         /// <summary>
