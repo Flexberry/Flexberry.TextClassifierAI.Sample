@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
+    using System.Text;
 
     /// <summary>
     /// Класс для конвертации pdf в png и распознавания с помощью Tesseract.
@@ -59,7 +60,7 @@
         /// <param name="mainDirectory">Директория, где находится изначальный файл.</param>
         /// <param name="pngDirectory">Директория в которую будут складываться png файлы.</param>
         /// <param name="originFileNameWithoutExt">Имя изначального pdf файла, без расширения.</param>
-        private void CreatePngFilesFromPdf(string mainDirectory, string pngDirectory, string originFileNameWithoutExt)
+        private static void CreatePngFilesFromPdf(string mainDirectory, string pngDirectory, string originFileNameWithoutExt)
         {
             string pdfFile = Path.Combine(mainDirectory, originFileNameWithoutExt + ".pdf");
             string pngFile = Path.Combine(pngDirectory, originFileNameWithoutExt + ".png");
@@ -94,7 +95,7 @@
         /// </summary>
         /// <param name="pngDirectory">Директория с png файлами.</param>
         /// <param name="recognitionDirectory">Директория для сохранения распознанных файлов.</param>
-        private void RecognizePng(string pngDirectory, string recognitionDirectory)
+        private static void RecognizePng(string pngDirectory, string recognitionDirectory)
         {
             // Получаем список конвертированных png файлов.
             List<string> pngFiles = Directory.GetFiles(pngDirectory).ToList();
@@ -135,10 +136,8 @@
         /// </summary>
         /// <param name="recognitionDirectory">Директория для сохранения распознанных файлов.</param>
         /// <returns>Объединенный распознанный текст.</returns>
-        private string MergeTxt(string recognitionDirectory)
+        private static string MergeTxt(string recognitionDirectory)
         {
-            string resultText = string.Empty;
-
             // Получаем список распознанных файлов.
             List<string> txtFiles = Directory.GetFiles(recognitionDirectory, "*.txt").ToList();
             txtFiles.Sort();
@@ -148,12 +147,14 @@
                 throw new InvalidOperationException("Merge txt error. Recognized files not found");
             }
 
+            StringBuilder stringBuilder = new StringBuilder();
+
             foreach (string existingFile in txtFiles)
             {
-                resultText += File.ReadAllText(existingFile);
+                stringBuilder.Append(existingFile);
             }
 
-            return resultText;
+            return stringBuilder.ToString();
         }
     }
 }

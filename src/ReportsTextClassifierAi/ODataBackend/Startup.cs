@@ -78,6 +78,7 @@
         /// </remarks>
         /// <param name="app">An application configurator.</param>
         /// <param name="env">Information about web hosting environment.</param>
+        /// <param name="uploadedFilesHandler">Upload files event handler.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataObjectUpdateHandler uploadedFilesHandler)
         {
             LogService.LogInfo("Инициирован запуск приложения.");
