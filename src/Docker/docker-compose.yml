@@ -15,7 +15,7 @@ services:
   app-postgres-db:
     image: reportstextclassifierai/postgre-sql
     volumes:
-      - DB:/var/lib/pgsql/data/
+      - DB:/var/lib/postgresql/data/
     ports:
       - 5432:5432
       
