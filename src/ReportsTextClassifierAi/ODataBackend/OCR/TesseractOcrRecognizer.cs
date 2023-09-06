@@ -22,7 +22,7 @@
         {
             if (!File.Exists(Path.Combine(uploadDirectory, uploadKey, fileName)))
             {
-                new DirectoryNotFoundException("Recognition error: File not found");
+                throw new DirectoryNotFoundException("Recognition error: File not found");
             }
 
             string resultText = string.Empty;
@@ -47,7 +47,7 @@
             }
             catch (Exception ex)
             {
-                throw new Exception("Recognition PDF failure " + ex.Message);
+                throw new InvalidOperationException("Recognition PDF failure " + ex.Message);
             }
 
             return resultText;
@@ -85,7 +85,7 @@
 
             if (convertPdfToPngProcess.ExitCode != 0)
             {
-                throw new Exception(errors);
+                throw new InvalidOperationException(errors);
             }
         }
 
@@ -125,7 +125,7 @@
 
                 if (convertPdfToPngProcess.ExitCode != 0)
                 {
-                    throw new Exception(errors);
+                    throw new InvalidOperationException(errors);
                 }
             }
         }
@@ -145,7 +145,7 @@
 
             if (txtFiles.Count == 0)
             {
-                throw new Exception("Merge txt error. Recognized files not found");
+                throw new InvalidOperationException("Merge txt error. Recognized files not found");
             }
 
             foreach (string existingFile in txtFiles)

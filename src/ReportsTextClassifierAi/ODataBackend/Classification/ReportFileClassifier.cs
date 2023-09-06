@@ -11,7 +11,7 @@
     /// <summary>
     /// Отвечает за классификацию загруженных pdf файлов отчетов.
     /// </summary>
-    internal class ReportFileClassifier : IDataObjectUpdateHandler
+    public class ReportFileClassifier : IDataObjectUpdateHandler
     {
         private readonly IConfiguration config;
 
@@ -42,7 +42,7 @@
 
                 string url = report.reportFile.Url;
 
-                Regex regex = new Regex("fileUploadKey=(.*?)&");
+                Regex regex = new Regex("fileUploadKey=(.*?)&", RegexOptions.None, TimeSpan.FromMilliseconds(1000));
                 GroupCollection regexMatch = regex.Match(url).Groups;
 
                 if (regexMatch != null && regexMatch.Count > 1)
