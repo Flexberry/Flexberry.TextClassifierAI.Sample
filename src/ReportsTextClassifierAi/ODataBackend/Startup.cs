@@ -62,8 +62,6 @@
 
             services.AddOData();
 
-            services.AddControllers().AddControllersAsServices();
-
             services.AddCors();
             services
                 .AddHealthChecks()
