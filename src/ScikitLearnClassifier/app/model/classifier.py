@@ -1,6 +1,7 @@
 import pickle
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.linear_model import LogisticRegression
 
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
@@ -39,7 +40,11 @@ class Classifier:
 
         model = Pipeline([('vect', CountVectorizer(stop_words=STOP_WORDS)),
                           ('tfidf', TfidfTransformer()),
-                          ('scale', StandardScaler(with_mean=False))])
+                          ('scale', StandardScaler(with_mean=False)),
+                          ('clf', LogisticRegression(n_jobs=1, class_weight='balanced', C=1e3))])
+        model.fit(x_train, y_train)
+
+        self.save_model(model)
 
     def filtered_train(self, train: pd.DataFrame, fields: list):
         """
@@ -49,6 +54,14 @@ class Classifier:
         :return: Отфильтрованные данные.
         """
         return train.dropna(subset=fields)
+
+    def save_model(self, model):
+        """
+        Сохранение обученной модели классификатора в файл с именем MODEL_FILE_NAME.
+        :param model: Обученная модель классификатора.
+        """
+        with open(MODEL_FILE_NAME, 'wb') as file:
+            pickle.dump(model, file)
 
     def load_model(self):
         """
