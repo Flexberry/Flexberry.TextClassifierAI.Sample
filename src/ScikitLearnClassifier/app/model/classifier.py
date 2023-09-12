@@ -1,7 +1,5 @@
-import pickle
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.linear_model import LogisticRegression
 
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
@@ -39,9 +37,6 @@ class Classifier:
         model = Pipeline([('vect', CountVectorizer(stop_words=STOP_WORDS)),
                           ('tfidf', TfidfTransformer()),
                           ('scale', StandardScaler(with_mean=False))])
-        model.fit(x_train, y_train)
-
-        self.save_model(model)
 
     def filtered_train(self, train: pd.DataFrame, fields: list):
         """
@@ -51,5 +46,4 @@ class Classifier:
         :return: Отфильтрованные данные.
         """
         return train.dropna(subset=fields)
-
 
