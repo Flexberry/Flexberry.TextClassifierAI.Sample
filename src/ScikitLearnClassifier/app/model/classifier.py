@@ -1,3 +1,4 @@
+import pickle
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
@@ -10,6 +11,8 @@ TEST_SIZE: float = 0.2
 # Значение для генератора случайных чисел при разделении общего количества данных
 # на случайные множества для обучения и тестирования.
 RANDOM_STATE: int = 2
+# Имя файла модели
+MODEL_FILE_NAME: str = "classifier_model.pkl"
 # Список стоп-слов для классификатора
 STOP_WORDS: list = ['english', 'spanish']
 
@@ -47,3 +50,25 @@ class Classifier:
         """
         return train.dropna(subset=fields)
 
+    def load_model(self):
+        """
+        Загрузка ранее обученной модели классификатора из файла с именем MODEL_FILE_NAME.
+        :return: Обученная модель классификатора.
+        """
+        with open(MODEL_FILE_NAME, 'rb') as file:
+            model = pickle.load(file)
+
+        return model
+
+    def classified_text(self, text: str):
+        """
+        Классификация строки текста согласно обученной ранее модели классификатора.
+        :param text: Классифицируемый текст
+        :return: Категория, к которой относится текст
+        """
+        try:
+            model = self.load_model()
+        except FileNotFoundError as ex:
+            raise FileNotFoundError("Classifier model wasn't found!")
+
+        return model.predict([text])[0]
