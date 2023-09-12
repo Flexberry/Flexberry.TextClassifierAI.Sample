@@ -19,7 +19,7 @@ STOP_WORDS: list = ['english', 'spanish']
 
 class Classifier:
     """
-    Класс с моделью для классифиуации текста по категориям.
+    Класс с моделью для классификации текста по категориям.
     """
 
     def new_model(self, train: pd.DataFrame, x_field_name: str, y_field_name: str):
