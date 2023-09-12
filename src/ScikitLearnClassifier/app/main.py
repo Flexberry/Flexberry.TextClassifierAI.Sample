@@ -4,6 +4,9 @@ from io import StringIO
 import uvicorn
 from fastapi import FastAPI, File, HTTPException
 
+from app.entities.request_entities import HttpTextDocument
+from app.model.classifier import Classifier
+
 app = FastAPI()
 
 
