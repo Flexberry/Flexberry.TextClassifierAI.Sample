@@ -27,14 +27,14 @@ async def classify(text_document: HttpTextDocument):
 @app.post("/model/new",
           summary="Create new classifier model",
           response_description="Information string about successfully classifier model created")
-async def new_model(file_bytes: bytes = File(),
+async def new_model(x_field_name: str,
+                    y_field_name: str,
+                    file_bytes: bytes = File(),
                     code_page: str = 'windows-1251',
-                    delimiter: str = ';',
-                    x_field_name: str = 'shortcontent',
-                    y_field_name: str = 'actkind'):
+                    delimiter: str = ';'):
 
     try:
-        data = pd.read_csv(StringIO(file_bytes.decode(code_page)), delimiter=delimiter)
+        data = pd.read_csv(StringIO(file_bytes.decode(code_page)), delimiter=delimiter, on_bad_lines='skip')
     except Exception as ex:
         raise HTTPException(status_code=400, detail=str(ex))
 
