@@ -18,12 +18,12 @@
 
 Основные параметры.
 
-<img src="src/docs/images/new_model_postman_01.jpg">
+<img src="docs/images/new_model_postman_01.jpg">
 
 
 Прикреплённый файл.
 
-<img src="src/docs/images/new_model_postman_02.jpg">
+<img src="docs/images/new_model_postman_02.jpg">
 
 
 В случае успешного выполнения запроса, в ответе придёт сообщение: "Classifier model was successfully created!".
@@ -36,6 +36,6 @@
 
 #### Пример запроса в Postman
 
-<img src="src/docs/images/classify_postman.jpg">
+<img src="docs/images/classify_postman.jpg">
 
 В случае успешного выполнения запроса, в ответе придёт JSON-объект с полем `text_category` со значением категории классифицируемого документа.

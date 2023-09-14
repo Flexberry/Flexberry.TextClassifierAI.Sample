@@ -34,7 +34,7 @@ async def new_model(x_field_name: str,
                     delimiter: str = ';'):
 
     try:
-        data = pd.read_csv(StringIO(file_bytes.decode(code_page)), delimiter=delimiter)
+        data = pd.read_csv(StringIO(file_bytes.decode(code_page)), delimiter=delimiter, on_bad_lines='skip')
     except Exception as ex:
         raise HTTPException(status_code=400, detail=str(ex))
 
