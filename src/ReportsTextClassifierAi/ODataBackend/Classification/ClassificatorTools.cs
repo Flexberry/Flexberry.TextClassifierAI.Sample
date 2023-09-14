@@ -8,10 +8,10 @@
     /// <summary>
     /// Инструменты для взаимодействия с сервисом классификации.
     /// </summary>
-    public class ClassificatorTools
+    public static class ClassificatorTools
     {
         /// <summary>
-        /// Отправка запроса к сервису классификации. 
+        /// Отправка запроса к сервису классификации.
         /// </summary>
         /// <param name="classificatorUrl">Адрес сервиса классификации.</param>
         /// <param name="fileName">Имя файла.</param>
