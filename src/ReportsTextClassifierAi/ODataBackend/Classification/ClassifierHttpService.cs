@@ -8,17 +8,17 @@
     /// <summary>
     /// Инструменты для взаимодействия с сервисом классификации.
     /// </summary>
-    public static class ClassificatorTools
+    public static class ClassifierHttpService
     {
         /// <summary>
-        /// Отправка запроса к сервису классификации.
+        /// Отправка запроса к сервису классификации на получение категории текста.
         /// </summary>
         /// <param name="classificatorUrl">Адрес сервиса классификации.</param>
         /// <param name="fileName">Имя файла.</param>
         /// <param name="text">Текст из файла для классификации.</param>
         /// <returns>Категория, к которой относится классифиируемый текст.</returns>
         /// <exception cref="HttpRequestException">Ошибка выполнения запроса к сервису классификации.</exception>
-        public static string GetTextCategoryRequest(string classificatorUrl, string fileName, string text)
+        public static string GetTextCategoryFromClassifier(string classificatorUrl, string fileName, string text)
         {
             string requestUrl = "classify";
             string resultField = "text_category";

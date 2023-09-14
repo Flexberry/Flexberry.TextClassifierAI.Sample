@@ -102,19 +102,19 @@
         /// <exception cref="HttpRequestException">Ошибка в случае неудачного запроса к сервису классификации.</exception>
         private string GetTextCategory(string fileName, string text)
         {
-            string classifierUrl = config["ClassifiercUrl"];
+            string classifierUrl = config["ClassifierUrl"];
             if (string.IsNullOrEmpty(classifierUrl))
             {
-                throw new ConfigurationErrorsException("ClassifiercUrl is not specified in Configuration or enviromnent variables.");
+                throw new ConfigurationErrorsException("ClassifierUrl is not specified in Configuration or enviromnent variables.");
             }
 
             try
             {
-                return ClassificatorTools.GetTextCategoryRequest(classifierUrl, fileName, text);
+                return ClassifierHttpService.GetTextCategoryFromClassifier(classifierUrl, fileName, text);
             }
             catch (Exception ex)
             {
-                throw new HttpRequestException("Pipeline attachment configutated error!\n" + ex.Message);
+                throw new HttpRequestException("Text category getting error!\n" + ex.Message);
             }
         }
     }
