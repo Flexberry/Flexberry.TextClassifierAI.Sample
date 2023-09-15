@@ -2,27 +2,27 @@ export default {
   projections: {
     ReportTypeE: {
       name: {
-        __caption__: ''
+        __caption__: 'Наименование'
       },
       typeId: {
-        __caption__: ''
+        __caption__: 'Идентификатор'
       }
     },
     ReportTypeL: {
       name: {
-        __caption__: ''
+        __caption__: 'Наименование'
       },
       typeId: {
-        __caption__: ''
+        __caption__: 'Идентификатор'
       }
     }
   },
   validations: {
     name: {
-      __caption__: 'name'
+      __caption__: 'Наименование'
     },
     typeId: {
-      __caption__: 'typeId'
+      __caption__: 'Идентификатор'
     }
   }
 };

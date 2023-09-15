@@ -2,24 +2,24 @@ export default {
   projections: {
     ReportE: {
       reportFile: {
-        __caption__: 'Report file'
+        __caption__: 'Файл'
       },
       reportType: {
-        __caption__: ''
+        __caption__: 'Тип отчета'
       }
     },
     ReportL: {
       reportFile: {
-        __caption__: 'Report file'
+        __caption__: 'Файл'
       }
     }
   },
   validations: {
     reportFile: {
-      __caption__: 'Report file'
+      __caption__: 'Файл'
     },
     reportType: {
-      __caption__: 'reportType'
+      __caption__: 'Тип отчета'
     }
   }
 };

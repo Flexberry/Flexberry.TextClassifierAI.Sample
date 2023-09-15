@@ -1,3 +1,3 @@
 export default {
-  caption: 'ReportType'
+  caption: 'Типы отчетов'
 };
