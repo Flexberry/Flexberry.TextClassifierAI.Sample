@@ -2,10 +2,14 @@
 
 WORKDIR /fastapiproject
 
+# Копирование модели обученного классификатора
+COPY /src/ScikitLearnClassifier/classifier_model.pkl /fastapiproject/classifier_model.pkl
+
 # Устанавливает зависимости.
 COPY /src/ScikitLearnClassifier/requirements.txt /fastapiproject/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /fastapiproject/requirements.txt
+RUN pip install python-multipart
 
 # Копируем файлы приложения и запускаем.
 COPY /src/ScikitLearnClassifier/app /fastapiproject/app
