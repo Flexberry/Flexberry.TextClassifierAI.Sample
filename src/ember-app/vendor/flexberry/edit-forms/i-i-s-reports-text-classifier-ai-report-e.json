@@ -2,7 +2,7 @@
   "propertyLookup": [
     {
       "master": null,
-      "displayAttributeName": null,
+      "displayAttributeName": "typeId",
       "required": false,
       "relationName": "ReportType",
       "projection": "ReportTypeL",

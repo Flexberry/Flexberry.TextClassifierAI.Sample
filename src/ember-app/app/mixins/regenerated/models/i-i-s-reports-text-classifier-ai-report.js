@@ -28,11 +28,15 @@ export let defineProjections = function (modelClass) {
   modelClass.defineProjection('ReportE', 'i-i-s-reports-text-classifier-ai-report', {
     reportFile: attr('Report file', { index: 0 }),
     reportType: belongsTo('i-i-s-reports-text-classifier-ai-report-type', '', {
-
+      name: attr('', { index: 0 }),
+      typeId: attr('', { index: 1 })
     }, { index: 1 })
   });
 
   modelClass.defineProjection('ReportL', 'i-i-s-reports-text-classifier-ai-report', {
-    reportFile: attr('Report file', { index: 0 })
+    reportFile: attr('Report file', { index: 0 }),
+    reportType: belongsTo('i-i-s-reports-text-classifier-ai-report-type', '', {
+      typeId: attr('Type ID', { index: 0 })
+    }, { index: -1, hidden: true })
   });
 };

@@ -44,7 +44,20 @@
           "relationName": "ReportType",
           "belongsTo": [],
           "hidden": false,
-          "attrs": [],
+          "attrs": [
+            {
+              "name": "name",
+              "caption": "",
+              "hidden": false,
+              "index": 0
+            },
+            {
+              "name": "typeId",
+              "caption": "",
+              "hidden": false,
+              "index": 1
+            }
+          ],
           "index": 1,
           "type": "default",
           "caption": "",
@@ -66,7 +79,29 @@
           "index": 0
         }
       ],
-      "belongsTo": [],
+      "belongsTo": [
+        {
+          "lookupValue": null,
+          "lookupValueField": null,
+          "relationName": "ReportType",
+          "belongsTo": [],
+          "hidden": true,
+          "attrs": [
+            {
+              "name": "typeId",
+              "caption": "Type ID",
+              "hidden": false,
+              "index": 0
+            }
+          ],
+          "index": -1,
+          "type": "default",
+          "caption": "",
+          "name": "reportType",
+          "relatedTo": "i-i-s-reports-text-classifier-ai-report-type",
+          "inverse": null
+        }
+      ],
       "hasMany": []
     }
   ],
