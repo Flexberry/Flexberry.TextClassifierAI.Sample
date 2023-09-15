@@ -20,7 +20,6 @@ export let ValidationRules = {
     descriptionKey: 'models.i-i-s-reports-text-classifier-ai-report.validations.reportType.__caption__',
     validators: [
       validator('ds-error'),
-      validator('presence', true),
     ],
   },
 };
