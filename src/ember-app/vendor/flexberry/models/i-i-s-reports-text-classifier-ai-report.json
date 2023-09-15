@@ -19,7 +19,6 @@
   "belongsTo": [
     {
       "polymorphic": false,
-      "presence": true,
       "name": "reportType",
       "relatedTo": "i-i-s-reports-text-classifier-ai-report-type",
       "inverse": null

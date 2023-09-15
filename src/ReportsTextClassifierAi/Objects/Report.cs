@@ -82,7 +82,6 @@ namespace IIS.ReportsTextClassifierAi
         // *** End programmer edit section *** (Report.ReportType CustomAttributes)
         [PropertyStorage(new string[] {
                 "ReportType"})]
-        [NotNull()]
         public virtual IIS.ReportsTextClassifierAi.ReportType ReportType
         {
             get

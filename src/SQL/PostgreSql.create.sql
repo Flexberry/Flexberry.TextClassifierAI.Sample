@@ -6,7 +6,7 @@
 CREATE TABLE Report (
  primaryKey UUID NOT NULL,
  reportFile TEXT NULL,
- ReportType UUID NOT NULL,
+ ReportType UUID NULL,
  PRIMARY KEY (primaryKey));
 
 
