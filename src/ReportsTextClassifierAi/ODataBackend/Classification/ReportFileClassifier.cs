@@ -2,6 +2,7 @@
 {
     using System;
     using System.Configuration;
+    using System.Net.Http;
     using System.Text.RegularExpressions;
     using ICSSoft.STORMNET;
     using IIS.ReportsTextClassifierAi.Interfaces;
@@ -59,8 +60,9 @@
 
                     string reсognizedText = RecognizeFile(uploadDirectory, uploadKey, fileName);
 
-                    // Отправить reсognizedText запросом в сервис классификации.
-                    Console.WriteLine(reсognizedText);
+                    string category = GetTextCategory(fileName, reсognizedText);
+                    Console.WriteLine($"Text: {reсognizedText}");
+                    Console.WriteLine($"Category: {category}");
                 }
             }
         }
@@ -88,6 +90,32 @@
             }
 
             return resultText;
+        }
+
+        /// <summary>
+        /// Получение категории, к которой относится классифицируемый текст.
+        /// </summary>
+        /// <param name="fileName">Имя файла.</param>
+        /// <param name="text">Текст из файла для классификации.</param>
+        /// <returns>Категория классифицируемого текста.</returns>
+        /// <exception cref="ConfigurationErrorsException">Ошибка, если не задан адрес сервиса классификации (ClassifiercUrl).</exception>
+        /// <exception cref="HttpRequestException">Ошибка в случае неудачного запроса к сервису классификации.</exception>
+        private string GetTextCategory(string fileName, string text)
+        {
+            string classifierUrl = config["ClassifierUrl"];
+            if (string.IsNullOrEmpty(classifierUrl))
+            {
+                throw new ConfigurationErrorsException("ClassifierUrl is not specified in Configuration or enviromnent variables.");
+            }
+
+            try
+            {
+                return ClassifierHttpService.GetTextCategoryFromClassifier(classifierUrl, fileName, text);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpRequestException("Text category getting error!\n" + ex.Message);
+            }
         }
     }
 }
