@@ -17,7 +17,7 @@ $.extend(true, translations, {
     'i-i-s-reports-text-classifier-ai-report': IISReportsTextClassifierAiReportModel
   },
 
-  'application-name': 'Reports ocr and search',
+  'application-name': 'Классификация текстов по тематике на основе ИИ-алгоритмов',
 
   forms: {
     loading: {
@@ -56,7 +56,7 @@ $.extend(true, translations, {
       },
 
       footer: {
-        'application-name': 'Reports ocr and search',
+        'application-name': 'Классификация текстов по тематике на основе ИИ-алгоритмов',
         'application-version': {
           caption: 'Версия аддона {{version}}',
           title: 'Это версия аддона ember-flexberry, которая сейчас используется в этом тестовом приложении ' +
@@ -67,8 +67,8 @@ $.extend(true, translations, {
 
       sitemap: {
         'application-name': {
-          caption: 'Reports ocr and search',
-          title: 'Reports ocr and search'
+          caption: 'Классификация текстов по тематике на основе ИИ-алгоритмов',
+          title: 'Классификация текстов по тематике на основе ИИ-алгоритмов'
         },
         'application-version': {
           caption: 'Версия аддона {{version}}',
@@ -81,15 +81,15 @@ $.extend(true, translations, {
           title: ''
         },
         'reports-text-classifier-ai': {
-          caption: 'ReportsTextClassifierAi',
-          title: 'ReportsTextClassifierAi',
+          caption: 'Классификация текста',
+          title: 'Классификация текста',
           'i-i-s-reports-text-classifier-ai-report-l': {
-            caption: 'ReportL',
-            title: 'Report'
+            caption: 'Отчеты',
+            title: 'Отчеты'
           },
           'i-i-s-reports-text-classifier-ai-report-type-l': {
-            caption: 'ReportTypeL',
-            title: ''
+            caption: 'Типы отчетов',
+            title: 'Типы отчетов'
           }
         }
       }

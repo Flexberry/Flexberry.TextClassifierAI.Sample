@@ -34,6 +34,7 @@ export default Controller.extend({
             link: 'i-i-s-reports-text-classifier-ai-report-type-l',
             caption: i18n.t('forms.application.sitemap.reports-text-classifier-ai.i-i-s-reports-text-classifier-ai-report-type-l.caption'),
             title: i18n.t('forms.application.sitemap.reports-text-classifier-ai.i-i-s-reports-text-classifier-ai-report-type-l.title'),
+            icon: 'list',
             children: null
           }]
         }

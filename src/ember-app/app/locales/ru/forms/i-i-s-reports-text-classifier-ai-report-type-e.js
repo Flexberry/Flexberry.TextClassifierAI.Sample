@@ -1,5 +1,5 @@
 export default {
-  caption: 'ReportType',
-  'name-caption': 'Report type',
-  'typeId-caption': 'Type id'
+  caption: 'Тип отчета',
+  'name-caption': 'Наименование',
+  'typeId-caption': 'Идентификатор'
 };

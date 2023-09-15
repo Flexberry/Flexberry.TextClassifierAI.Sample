@@ -1,5 +1,5 @@
 export default {
-  caption: 'Report',
-  'reportFile-caption': 'Report file',
-  'reportType-caption': 'Report type'
+  caption: 'Отчет',
+  'reportFile-caption': 'Файл',
+  'reportType-caption': 'Тип отчета'
 };
