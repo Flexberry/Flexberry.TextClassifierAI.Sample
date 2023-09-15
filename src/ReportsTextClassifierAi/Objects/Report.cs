@@ -28,7 +28,9 @@ namespace IIS.ReportsTextClassifierAi
     [AccessType(ICSSoft.STORMNET.AccessType.none)]
     [View("ReportE", new string[] {
             "reportFile as \'Report file\'",
-            "ReportType"})]
+            "ReportType",
+            "ReportType.Name",
+            "ReportType.TypeId"})]
     [View("ReportL", new string[] {
             "reportFile as \'Report file\'"})]
     public class Report : ICSSoft.STORMNET.DataObject

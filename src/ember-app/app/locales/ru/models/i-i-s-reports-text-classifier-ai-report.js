@@ -11,6 +11,15 @@ export default {
     ReportL: {
       reportFile: {
         __caption__: 'Файл'
+      },
+      reportType: {
+        __caption__: '',
+        name: {
+          __caption__: 'Тип отчета'
+        },
+        typeId: {
+          __caption__: 'Тип отчета'
+        },
       }
     }
   },
