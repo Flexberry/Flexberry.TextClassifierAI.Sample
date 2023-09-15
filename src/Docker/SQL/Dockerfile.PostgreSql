@@ -5,3 +5,4 @@ ENV POSTGRES_PASSWORD jhv
 ENV POSTGRES_DB appdb
 
 COPY PostgreSql.create.sql /docker-entrypoint-initdb.d/
+COPY PostgreSql.insert.sql /docker-entrypoint-initdb.d/
