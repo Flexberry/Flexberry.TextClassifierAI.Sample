@@ -88,8 +88,8 @@
           "hidden": true,
           "attrs": [
             {
-              "name": "typeId",
-              "caption": "Type ID",
+              "name": "name",
+              "caption": "Report type",
               "hidden": false,
               "index": 0
             }

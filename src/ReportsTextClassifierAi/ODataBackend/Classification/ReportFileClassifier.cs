@@ -2,9 +2,12 @@
 {
     using System;
     using System.Configuration;
+    using System.Linq;
     using System.Net.Http;
     using System.Text.RegularExpressions;
     using ICSSoft.STORMNET;
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.LINQProvider;
     using IIS.ReportsTextClassifierAi.Interfaces;
     using IIS.ReportsTextClassifierAi.OCR;
     using Microsoft.Extensions.Configuration;
@@ -63,6 +66,25 @@
                     string category = GetTextCategory(fileName, reсognizedText);
                     Console.WriteLine($"Text: {reсognizedText}");
                     Console.WriteLine($"Category: {category}");
+
+                    if (report.ReportType == null)
+                    {
+                        var dataService = DataServiceProvider.DataService;
+                        var reportType = dataService.Query<ReportType>()
+                            .Where(rt => rt.TypeId == category)
+                            .FirstOrDefault();
+
+                        if (reportType != null)
+                        {
+                            report.ReportType = reportType;
+
+                            dataService.UpdateObject(report);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Error: no ReportType for Report({report.__PrimaryKey})");
+                        }
+                    }
                 }
             }
         }
