@@ -81,6 +81,10 @@
                     .Where(rt => rt.TypeId == category)
                     .FirstOrDefault();
 
+                reportType ??= dataService.Query<ReportType>()
+                    .Where(rt => rt.Name == category)
+                    .FirstOrDefault();
+
                 if (reportType != null)
                 {
                     report.ReportType = reportType;
