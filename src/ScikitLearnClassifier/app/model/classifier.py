@@ -29,7 +29,7 @@ class Classifier:
         :param y_field_name: Имя поля в train с целевыми значениями.
         """
         train = self.filtered_train(train, [x_field_name, y_field_name])
-        train = train.map(str)
+        train[y_field_name] = train[y_field_name].map(str)
         x_train, x_test, y_train, y_test = self.train_test_categories_split(train, x_field_name, y_field_name)
 
         model = Pipeline([('vect', CountVectorizer(stop_words=STOP_WORDS)),
@@ -38,8 +38,8 @@ class Classifier:
                           ('clf', LogisticRegression(class_weight='balanced', C=1e4))])
         model.fit(x_train, y_train)
 
-        pred = model.predict(x_test)
-        accuracy = accuracy_score(y_test, pred)
+        prediction = model.predict(x_test)
+        accuracy = accuracy_score(y_test, prediction)
         print(f'Accuracy: {accuracy:.3f}')
 
         self.save_model(model)

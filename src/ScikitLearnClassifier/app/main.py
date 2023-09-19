@@ -21,7 +21,7 @@ async def classify(text_document: HttpTextDocument):
     except Exception as ex:
         raise HTTPException(status_code=400, detail=str(ex))
 
-    return {'text_category': category}
+    return {'text_category': int(category)}
 
 
 @app.post("/model/new",
