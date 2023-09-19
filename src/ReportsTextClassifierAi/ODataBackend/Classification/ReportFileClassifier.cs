@@ -67,24 +67,29 @@
                     Console.WriteLine($"Text: {reсognizedText}");
                     Console.WriteLine($"Category: {category}");
 
-                    if (report.ReportType == null)
-                    {
-                        var dataService = DataServiceProvider.DataService;
-                        var reportType = dataService.Query<ReportType>()
-                            .Where(rt => rt.TypeId == category)
-                            .FirstOrDefault();
+                    InitReportType(report, category);
+                }
+            }
+        }
 
-                        if (reportType != null)
-                        {
-                            report.ReportType = reportType;
+        private static void InitReportType(Report report, string category)
+        {
+            if (report.ReportType == null)
+            {
+                var dataService = DataServiceProvider.DataService;
+                var reportType = dataService.Query<ReportType>()
+                    .Where(rt => rt.TypeId == category)
+                    .FirstOrDefault();
 
-                            dataService.UpdateObject(report);
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Error: no ReportType for Report({report.__PrimaryKey})");
-                        }
-                    }
+                if (reportType != null)
+                {
+                    report.ReportType = reportType;
+
+                    dataService.UpdateObject(report);
+                }
+                else
+                {
+                    Console.WriteLine($"Error: no ReportType for Report({report.__PrimaryKey})");
                 }
             }
         }
