@@ -64,8 +64,8 @@
                     string reсognizedText = RecognizeFile(uploadDirectory, uploadKey, fileName);
 
                     string category = GetTextCategory(fileName, reсognizedText);
-                    Console.WriteLine($"Text: {reсognizedText}");
-                    Console.WriteLine($"Category: {category}");
+                    LogService.LogDebug($"Text: {reсognizedText}");
+                    LogService.LogDebug($"Category: {category}");
 
                     InitReportType(report, category);
                 }
@@ -74,17 +74,18 @@
 
         private static void InitReportType(Report report, string category)
         {
-            if (report.ReportType == null)
-            {
-                var dataService = DataServiceProvider.DataService;
-                var reportType = dataService.Query<ReportType>()
+            var dataService = DataServiceProvider.DataService;
+            var reportType = dataService.Query<ReportType>()
                     .Where(rt => rt.TypeId == category)
                     .FirstOrDefault();
 
-                reportType ??= dataService.Query<ReportType>()
-                    .Where(rt => rt.Name == category)
-                    .FirstOrDefault();
+            reportType ??= dataService.Query<ReportType>()
+                .Where(rt => rt.Name == category)
+                .FirstOrDefault();
 
+            if (report.ReportType == null
+                || (report.ReportType != null && reportType != null))
+            {
                 if (reportType != null)
                 {
                     report.ReportType = reportType;
@@ -93,7 +94,7 @@
                 }
                 else
                 {
-                    Console.WriteLine($"Error: no ReportType for Report({report.__PrimaryKey})");
+                    LogService.LogDebug($"Error: ReportType({category}) not found for Report({report.__PrimaryKey})");
                 }
             }
         }
