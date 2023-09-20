@@ -1,21 +1,19 @@
 import pickle
 import pandas as pd
+import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
 
-from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 # Объём данных для тестирования из общего количества.
-TEST_SIZE: float = 0.2
-# Значение для генератора случайных чисел при разделении общего количества данных
-# на случайные множества для обучения и тестирования.
-RANDOM_STATE: int = 2
+TEST_SIZE: float = 0.1
 # Имя файла модели
 MODEL_FILE_NAME: str = "classifier_model.pkl"
 # Список стоп-слов для классификатора
-STOP_WORDS: list = ['english', 'spanish']
+STOP_WORDS: list = ["на", "в", "из", "под"]
 
 
 class Classifier:
@@ -31,18 +29,18 @@ class Classifier:
         :param y_field_name: Имя поля в train с целевыми значениями.
         """
         train = self.filtered_train(train, [x_field_name, y_field_name])
-        y = train[y_field_name]
-        x = train[x_field_name]
-        x_train, x_test, y_train, y_test = train_test_split(
-            x, y,
-            test_size=TEST_SIZE,
-            random_state=RANDOM_STATE)
+        train[y_field_name] = train[y_field_name].map(str)
+        x_train, x_test, y_train, y_test = self.train_test_categories_split(train, x_field_name, y_field_name)
 
         model = Pipeline([('vect', CountVectorizer(stop_words=STOP_WORDS)),
                           ('tfidf', TfidfTransformer()),
                           ('scale', StandardScaler(with_mean=False)),
-                          ('clf', LogisticRegression(n_jobs=1, class_weight='balanced', C=1e3))])
+                          ('clf', LogisticRegression(class_weight='balanced', C=1e4))])
         model.fit(x_train, y_train)
+
+        prediction = model.predict(x_test)
+        accuracy = accuracy_score(y_test, prediction)
+        print(f'Accuracy: {accuracy:.3f}')
 
         self.save_model(model)
 
@@ -54,6 +52,38 @@ class Classifier:
         :return: Отфильтрованные данные.
         """
         return train.dropna(subset=fields)
+
+    def train_test_categories_split(self, dataset: pd.DataFrame, x_field_name: str, y_field_name: str):
+        y_unique: np.ndarray = dataset[y_field_name].unique()
+
+        test_data = pd.DataFrame(columns=dataset.columns)
+        train_data = pd.DataFrame(columns=dataset.columns)
+
+        for category in y_unique:
+            category_count: int = dataset[y_field_name].value_counts()[category]
+            test_count: int = round(category_count * TEST_SIZE)
+            category_dataset: pd.DataFrame = dataset[dataset[y_field_name] == category]
+            for i in range(test_count):
+                rnd_range: int = test_count - i
+                drop_index = category_dataset.index[np.random.randint(rnd_range)]
+
+                test_data = pd.concat([test_data, pd.DataFrame(category_dataset.loc[drop_index]).T], ignore_index=True)
+                category_dataset = category_dataset.drop(index=drop_index)
+
+            train_data = pd.concat([train_data, category_dataset], ignore_index=True)
+
+        x_train = train_data[x_field_name]
+        x_test = test_data[x_field_name]
+        y_train = train_data[y_field_name]
+        y_test = test_data[y_field_name]
+
+        print("Dataset (train / test / percent):")
+        for category in y_unique:
+            train_count = len(y_train[y_train == category])
+            test_count = len(y_test[y_test == category])
+            print(f"{category}: {train_count} / {test_count} / {test_count / (train_count + test_count) * 100:.1f}%")
+
+        return x_train, x_test, y_train, y_test
 
     def save_model(self, model):
         """
