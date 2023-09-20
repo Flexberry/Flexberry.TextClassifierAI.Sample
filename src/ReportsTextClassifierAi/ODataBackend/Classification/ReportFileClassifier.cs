@@ -83,19 +83,15 @@
                 .Where(rt => rt.Name == category)
                 .FirstOrDefault();
 
-            if (report.ReportType == null
-                || (report.ReportType != null && reportType != null))
+            if (reportType != null)
             {
-                if (reportType != null)
-                {
-                    report.ReportType = reportType;
+                report.ReportType = reportType;
 
-                    dataService.UpdateObject(report);
-                }
-                else
-                {
-                    LogService.LogDebug($"Error: ReportType({category}) not found for Report({report.__PrimaryKey})");
-                }
+                dataService.UpdateObject(report);
+            }
+            else
+            {
+                LogService.LogDebug($"Error: ReportType({category}) not found for Report({report.__PrimaryKey})");
             }
         }
 
