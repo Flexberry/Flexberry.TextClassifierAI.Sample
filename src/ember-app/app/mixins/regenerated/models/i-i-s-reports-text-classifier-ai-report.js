@@ -36,7 +36,7 @@ export let defineProjections = function (modelClass) {
   modelClass.defineProjection('ReportL', 'i-i-s-reports-text-classifier-ai-report', {
     reportFile: attr('Report file', { index: 0 }),
     reportType: belongsTo('i-i-s-reports-text-classifier-ai-report-type', '', {
-      typeId: attr('Type ID', { index: 0 })
+      name: attr('Report type', { index: 0 })
     }, { index: -1, hidden: true })
   });
 };

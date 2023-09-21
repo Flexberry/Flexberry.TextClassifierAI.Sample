@@ -6,15 +6,6 @@ module.exports = function(environment) {
 
   if (environment === 'development-loc') {
     // Use `ember s -e development-loc` command for local backend usage.
-    backendUrl = 'http://localhost:80';
-  }
-
-
-  // Replace this local address to remote when backed will be published.
-  var backendUrl = 'http://localhost:80';
-
-  if (environment === 'development-loc') {
-    // Use `ember s -e development-loc` command for local backend usage.
     backendUrl = 'http://localhost:6500';
   }
 
@@ -28,7 +19,7 @@ module.exports = function(environment) {
     modulePrefix: 'ember-app',
     environment,
     rootURL: '/',
-    locationType: 'auto',
+    locationType: 'hash',
     EmberENV: {
       LOG_STACKTRACE_ON_DEPRECATION: false,
 
@@ -148,8 +139,8 @@ module.exports = function(environment) {
         flexberrySimpledatetime: {
           // The selector to get the element (using `jQuery`) for the `appendTo` flatpickr option, see https://flatpickr.js.org/options/.
           calendarContext: undefined
-        }
-,
+        },
+
         // Settings for `flexberryObjectlistview` component.
         flexberryObjectlistview: {
           // Default number of records on the list page.

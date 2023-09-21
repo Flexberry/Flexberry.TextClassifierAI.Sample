@@ -159,7 +159,8 @@
                 throw new System.Configuration.ConfigurationErrorsException("BackendRoot is not specified in Configuration or enviromnent variables.");
             }
 
-            Console.WriteLine($"baseUriRaw is {baseUriRaw}");
+            LogService.LogDebug($"baseUriRaw is {baseUriRaw}");
+
             var baseUri = new Uri(baseUriRaw);
             string uploadPath = Configuration["UploadUrl"];
             container.RegisterSingleton<IDataObjectFileAccessor, DefaultDataObjectFileAccessor>(
