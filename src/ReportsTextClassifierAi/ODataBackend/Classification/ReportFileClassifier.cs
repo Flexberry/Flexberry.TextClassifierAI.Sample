@@ -2,9 +2,12 @@
 {
     using System;
     using System.Configuration;
+    using System.Linq;
     using System.Net.Http;
     using System.Text.RegularExpressions;
     using ICSSoft.STORMNET;
+    using ICSSoft.STORMNET.Business;
+    using ICSSoft.STORMNET.Business.LINQProvider;
     using IIS.ReportsTextClassifierAi.Interfaces;
     using IIS.ReportsTextClassifierAi.OCR;
     using Microsoft.Extensions.Configuration;
@@ -61,9 +64,34 @@
                     string reсognizedText = RecognizeFile(uploadDirectory, uploadKey, fileName);
 
                     string category = GetTextCategory(fileName, reсognizedText);
-                    Console.WriteLine($"Text: {reсognizedText}");
-                    Console.WriteLine($"Category: {category}");
+                    LogService.LogDebug($"Text: {reсognizedText}");
+                    LogService.LogDebug($"Category: {category}");
+
+                    InitReportType(report, category);
                 }
+            }
+        }
+
+        private static void InitReportType(Report report, string category)
+        {
+            var dataService = DataServiceProvider.DataService;
+            var reportType = dataService.Query<ReportType>()
+                    .Where(rt => rt.TypeId == category)
+                    .FirstOrDefault();
+
+            reportType ??= dataService.Query<ReportType>()
+                .Where(rt => rt.Name == category)
+                .FirstOrDefault();
+
+            if (reportType != null)
+            {
+                report.ReportType = reportType;
+
+                dataService.UpdateObject(report);
+            }
+            else
+            {
+                LogService.LogDebug($"Error: ReportType({category}) not found for Report({report.__PrimaryKey})");
             }
         }
 
