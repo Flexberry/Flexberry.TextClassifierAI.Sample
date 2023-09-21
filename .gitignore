@@ -352,3 +352,7 @@ MigrationBackup/
 # Code generator
 gen/
 
+#Idea
+.idea
+venv
+
