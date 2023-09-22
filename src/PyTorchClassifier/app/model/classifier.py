@@ -1,4 +1,5 @@
 import torch
+import string
 from app.model.model import TextClassificationModel
 from app.model.dataset import create_dataset
 from torch.utils.data.dataset import random_split
@@ -11,9 +12,9 @@ from torchtext.vocab import build_vocab_from_iterator
 # Размерность векторов в матрице внедрения.
 EM_SIZE = 300
 # Количество эпох обучения.
-EPOCHS = 15
+EPOCHS = 20
 # Скорость обучения.
-LR = 0.002
+LR = 0.004
 # Размер батча.
 BATCH_SIZE = 64
 # Идентификатор устройства расчета.
@@ -29,6 +30,15 @@ def yield_tokens(data_iter):
     for _, text in data_iter:
         yield tokenizer(text)
 
+
+def remove_punctuation(input_string):
+    # Make a translation table that maps all punctuation characters to None
+    translator = str.maketrans("", "", string.punctuation)
+
+    # Apply the translation table to the input string
+    result = input_string.translate(translator)
+
+    return result
 
 class Classifier:
     """
@@ -47,7 +57,7 @@ class Classifier:
         vocab = build_vocab_from_iterator(yield_tokens(dataset), specials=["<unk>"])
         vocab.set_default_index(vocab["<unk>"])
 
-        text_pipeline = lambda x: vocab(tokenizer(x))
+        text_pipeline = lambda x: vocab(tokenizer(remove_punctuation(x)))
         label_pipeline = lambda x: int(x) - 1
 
         def collate_batch(batch):
@@ -80,7 +90,7 @@ class Classifier:
         traint_iter, test_iter = train_test_split(dataset, test_size=0.1, random_state=20)
         train_dataset = to_map_style_dataset(traint_iter)
         test_dataset = to_map_style_dataset(test_iter)
-        num_train = int(len(train_dataset) * 0.9)
+        num_train = int(len(train_dataset) * 0.8)
 
         split_train_, split_valid_ = random_split(
             train_dataset, [num_train, len(train_dataset) - num_train]
@@ -164,7 +174,7 @@ class Classifier:
                     text_value = torch.tensor(text_pipeline(text_value))
                     output = model(text_value, torch.tensor([0]))
 
-                    return output.argmax(1).item()
+                    return output.argmax(1).item() + 1
 
             result = predict(text)
 
