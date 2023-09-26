@@ -24,6 +24,11 @@ services:
     image: reportstextclassifierai/classifier
     ports:
       - 81:80
+      
+  classifier-pytorch:
+    image: reportstextclassifierai/classifier2
+    ports:
+      - 82:80
 
 volumes:
   DB:

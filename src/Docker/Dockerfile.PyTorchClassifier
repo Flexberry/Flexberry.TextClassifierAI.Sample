@@ -1,0 +1,17 @@
+﻿FROM python:3.11
+
+WORKDIR /fastapiproject
+
+# Устанавливает зависимости.
+COPY /src/PyTorchClassifier/requirements.txt /fastapiproject/requirements.txt
+
+RUN \
+	pip install --no-cache-dir --upgrade -r /fastapiproject/requirements.txt ; \
+	pip install python-multipart ; \
+	pip install torchtext spacy ; \
+	python -m spacy download ru_core_news_lg ;
+
+# Копируем файлы приложения и запускаем.
+COPY /src/PyTorchClassifier/app /fastapiproject/app
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
