@@ -51,6 +51,7 @@ class Classifier:
         :param csv: Csv файл.
         :param text_column: Имя столбца с тектом.
         :param label_column_name: Имя столбца с категорией.
+        :param delimiter: Разделитель.
         """
         dataset = create_dataset(csv, text_column, label_column_name, delimiter)
 
@@ -84,7 +85,7 @@ class Classifier:
 
         criterion = torch.nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr=LR)
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1.0, gamma=0.1)
+        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.1)
         total_accu = None
 
         traint_iter, test_iter = train_test_split(dataset, test_size=0.1, random_state=20)
