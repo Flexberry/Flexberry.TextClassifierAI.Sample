@@ -25,5 +25,10 @@ services:
     ports:
       - 81:80
 
+  signature-classifier:
+    image: reportstextclassifierai/signature-classifier
+    ports:
+      - 83:80
+
 volumes:
   DB:
