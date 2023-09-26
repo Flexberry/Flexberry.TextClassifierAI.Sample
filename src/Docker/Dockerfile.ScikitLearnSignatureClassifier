@@ -5,10 +5,6 @@ WORKDIR /fastapiproject
 # Копирование модели обученного классификатора
 COPY /src/ScikitLearnSignatureClassifier/signature_classifier_model.pkl /fastapiproject/signature_classifier_model.pkl
 
-# Папки для обучения и их содержимое
-COPY /src/ScikitLearnSignatureClassifier/signature_dataset/signature /fastapiproject/signature_dataset/signature
-COPY /src/ScikitLearnSignatureClassifier/signature_dataset/not_signature /fastapiproject/signature_dataset/not_signature
-
 # Устанавливает зависимости.
 COPY /src/ScikitLearnSignatureClassifier/requirements.txt /fastapiproject/requirements.txt
 

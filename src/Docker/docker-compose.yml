@@ -24,6 +24,11 @@ services:
     image: reportstextclassifierai/classifier
     ports:
       - 81:80
+      
+  classifier-pytorch:
+    image: reportstextclassifierai/classifier-pytorch
+    ports:
+      - 82:80
 
   signature-classifier:
     image: reportstextclassifierai/signature-classifier
